@@ -1,6 +1,11 @@
 
 
 export const urlVersioning = (version) => (req, res, next)=>{
+
+     if (req.path === "/" || req.path.startsWith("/api-docs")) {
+      return next();
+    }
+    
     if(req.path.startsWith(`/api/${version}`)){
         next()
     } else{
