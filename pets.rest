@@ -1,0 +1,89 @@
+####################################
+#            PET ROUTES
+####################################
+// -g http-server
+### Get all pets
+GET http://localhost:3000/api/v1/pets
+Content-Type: application/json
+
+
+### Create new pet
+POST http://localhost:3000/api/v1/pets
+Content-Type: application/json
+
+{
+  "name": "Bella",
+  "species": "Dog",
+  "age": 3,
+  "breed": "Labrador",
+  "status": "Available"
+}
+
+### Get pet by ID
+GET http://localhost:3000/api/v1/pets/6923b363a76cb21741f92f30
+Content-Type: application/json
+
+
+### Update pet
+PUT http://localhost:3000/api/v1/pets/6923b363a76cb21741f92f30
+Content-Type: application/json
+
+{
+  "name": "Bella Updated",
+  "species": "Dog",
+  "age": 4,
+  "breed": "Golden Retriever",
+  "status": "Adopted"
+}
+
+### Delete pet
+DELETE http://localhost:3000/api/v1/pets/68fee4cb27ab0247a0e41dea
+Content-Type: application/json
+
+
+
+####################################
+#            USER ROUTES
+####################################
+
+### Get all users
+GET http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+
+### Create user
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "phone": "09123456789"
+}
+
+### Get all adoptions for a user
+GET http://localhost:3000/api/v1/users/692cf61f87b969b6d8619604/adoptions
+Content-Type: application/json
+
+
+
+####################################
+#          ADOPTION ROUTES
+####################################
+
+### Get all adoptions
+GET http://localhost:3000/api/v1/adoptions
+Content-Type: application/json
+
+
+### Create adoption
+POST http://localhost:3000/api/v1/adoptions
+Content-Type: application/json
+
+{
+  "petId": "6923b363a76cb21741f92f30",
+  "userId": "68fb0746b2c4edcc08ca35a4",
+  "status": "Pending"
+}
+
+### Update adoption status
