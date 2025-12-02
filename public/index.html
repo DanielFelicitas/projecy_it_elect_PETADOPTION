@@ -3,6 +3,7 @@
   <body>
 
     <script>
+      // i -g http-server http-server -p 7000
       fetch('http://localhost:4000/api/v1/pets', { credentials: 'include' })
     .then(res => res.json())
     .then(data => console.log("SUCCESS:", data))

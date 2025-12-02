@@ -6,14 +6,24 @@ import petRoutes from "./routes/petRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import adoptionRoutes from "./routes/adoptionRoutes.js";
 import { swaggerUi, swaggerSpec } from "./config/swagger.js";
-
+import { requestLogger, addTimeStamp } from "./middleware/customMiddleware.js";
+import { globalErrorHandler } from "./middleware/errorHandling.js";
+import { urlVersioning } from "./middleware/apiVersioning.js";
+import rateLimiter from "./middleware/rateLimiting.js";
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(requestLogger);
+app.use(addTimeStamp);
+
 app.use(configureCors());
+app.use(rateLimiter(100, 15*60*1000));
 app.use(express.json());
+
+app.use(globalErrorHandler);
+app.use(urlVersioning("v1"));
 
 connectDB();
 

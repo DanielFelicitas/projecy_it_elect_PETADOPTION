@@ -24,7 +24,7 @@ const configureCors = () => {
         exposedHeaders : ['X-Total-Count', 'Content-Range'],
         credentials : true, //enable support for cookiess
         preflightContinue : false,
-        maxAge : 600, // cache pre fligth responses just to avoid sending options request mutilple times
+        maxAge : 600, // cache pre flight responses just to avoid sending options request mutilple times
         optionsSuccessStatus : 204,  
     })
 }

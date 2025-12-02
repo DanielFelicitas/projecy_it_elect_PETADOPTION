@@ -1,10 +1,10 @@
 ####################################
 #            PET ROUTES
 ####################################
-// -g http-server
+
 ### Get all pets
 GET http://localhost:3000/api/v1/pets
-Content-Type: application/json
+
 
 
 ### Create new pet
@@ -29,7 +29,7 @@ PUT http://localhost:3000/api/v1/pets/6923b363a76cb21741f92f30
 Content-Type: application/json
 
 {
-  "name": "Bella Updated",
+  "name": "Bella Upasdaddated",
   "species": "Dog",
   "age": 4,
   "breed": "Golden Retriever",
@@ -37,8 +37,8 @@ Content-Type: application/json
 }
 
 ### Delete pet
-DELETE http://localhost:3000/api/v1/pets/68fee4cb27ab0247a0e41dea
-Content-Type: application/json
+DELETE http://localhost:3000/api/v1/pets/6923b363a76cb21741f92f30
+
 
 
 
@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ### Get all users
 GET http://localhost:3000/api/v1/users
-Content-Type: application/json
+
 
 
 ### Create user
@@ -56,14 +56,14 @@ POST http://localhost:3000/api/v1/users
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "john@example.com",
+  "name": "John Doqwee",
+  "email": "john@exampeqwele.com",
   "phone": "09123456789"
 }
 
 ### Get all adoptions for a user
 GET http://localhost:3000/api/v1/users/692cf61f87b969b6d8619604/adoptions
-Content-Type: application/json
+
 
 
 
@@ -73,7 +73,7 @@ Content-Type: application/json
 
 ### Get all adoptions
 GET http://localhost:3000/api/v1/adoptions
-Content-Type: application/json
+
 
 
 ### Create adoption
@@ -86,4 +86,10 @@ Content-Type: application/json
   "status": "Pending"
 }
 
-### Update adoption status
+### 
+PUT http://localhost:3000/api/v1/adoptions/68fee05f27ab0247a0e41de1
+Content-Type: application/json
+
+{
+  "status": "approved", 
+}
