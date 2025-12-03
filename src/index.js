@@ -10,13 +10,17 @@ import { requestLogger, addTimeStamp } from "./middleware/customMiddleware.js";
 import { globalErrorHandler } from "./middleware/errorHandling.js";
 import { urlVersioning } from "./middleware/apiVersioning.js";
 import rateLimiter from "./middleware/rateLimiting.js";
+import swaggerUiAssetPath from "swagger-ui-dist";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+app.use("/api-docs-assets", express.static(swaggerUiAssetPath.getAbsoluteFSPath()));
 
 app.use(express.static("public"));
+
+
 
 app.use(requestLogger);
 app.use(addTimeStamp);
