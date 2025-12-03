@@ -10,10 +10,13 @@ import { requestLogger, addTimeStamp } from "./middleware/customMiddleware.js";
 import { globalErrorHandler } from "./middleware/errorHandling.js";
 import { urlVersioning } from "./middleware/apiVersioning.js";
 import rateLimiter from "./middleware/rateLimiting.js";
-import path from "path";
 import swaggerUiAssetPath from "swagger-ui-dist";
-
+import { fileURLToPath } from "url";
+import path from "path"
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -40,25 +43,21 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/adoptions", adoptionRoutes);
 
 //swagger documentation route
+app.use("/api-docs", express.static(swaggerUiAssetPath.getAbsoluteFSPath()));
 
-
-app.use("/api-docs/swagger-ui.css", express.static(path.join(swaggerUiAssetPath.getAbsoluteFSPath(), "swagger-ui.css")));
-app.use("/api-docs/swagger-ui-bundle.js", express.static(path.join(swaggerUiAssetPath.getAbsoluteFSPath(), "swagger-ui-bundle.js")));
-app.use("/api-docs/swagger-ui-standalone-preset.js", express.static(path.join(swaggerUiAssetPath.getAbsoluteFSPath(), "swagger-ui-standalone-preset.js")));
-
-// Swagger UI HTML
+// Serve Swagger UI HTML
 app.get("/api-docs", (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <html>
       <head>
         <title>Swagger UI</title>
-        <link href="/api-docs/swagger-ui.css" rel="stylesheet">
+        <link href="swagger-ui.css" rel="stylesheet">
       </head>
       <body>
         <div id="swagger-ui"></div>
-        <script src="/api-docs/swagger-ui-bundle.js"></script>
-        <script src="/api-docs/swagger-ui-standalone-preset.js"></script>
+        <script src="swagger-ui-bundle.js"></script>
+        <script src="swagger-ui-standalone-preset.js"></script>
         <script>
           window.ui = SwaggerUIBundle({
             spec: ${JSON.stringify(swaggerSpec)},
