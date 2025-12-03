@@ -10,6 +10,9 @@ import { requestLogger, addTimeStamp } from "./middleware/customMiddleware.js";
 import { globalErrorHandler } from "./middleware/errorHandling.js";
 import { urlVersioning } from "./middleware/apiVersioning.js";
 import rateLimiter from "./middleware/rateLimiting.js";
+import path from "path";
+import swaggerUiAssetPath from "swagger-ui-dist";
+
 dotenv.config();
 
 const app = express();
@@ -39,8 +42,34 @@ app.use("/api/v1/adoptions", adoptionRoutes);
 //swagger documentation route
 
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api-docs/swagger-ui.css", express.static(path.join(swaggerUiAssetPath.getAbsoluteFSPath(), "swagger-ui.css")));
+app.use("/api-docs/swagger-ui-bundle.js", express.static(path.join(swaggerUiAssetPath.getAbsoluteFSPath(), "swagger-ui-bundle.js")));
+app.use("/api-docs/swagger-ui-standalone-preset.js", express.static(path.join(swaggerUiAssetPath.getAbsoluteFSPath(), "swagger-ui-standalone-preset.js")));
 
-
+// Swagger UI HTML
+app.get("/api-docs", (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Swagger UI</title>
+        <link href="/api-docs/swagger-ui.css" rel="stylesheet">
+      </head>
+      <body>
+        <div id="swagger-ui"></div>
+        <script src="/api-docs/swagger-ui-bundle.js"></script>
+        <script src="/api-docs/swagger-ui-standalone-preset.js"></script>
+        <script>
+          window.ui = SwaggerUIBundle({
+            spec: ${JSON.stringify(swaggerSpec)},
+            dom_id: '#swagger-ui',
+            presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+            layout: "StandaloneLayout"
+          });
+        </script>
+      </body>
+    </html>
+  `);
+});
 
 export default app;
