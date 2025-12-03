@@ -49,16 +49,14 @@ app.get("/api-docs", (req, res) => {
     <html>
       <head>
         <title>Swagger UI</title>
-        <link rel="stylesheet" type="text/css" href="/api-docs-assets/swagger-ui.css" />
+        <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css">
       </head>
       <body>
         <div id="swagger-ui"></div>
-
-        <script src="/api-docs-assets/swagger-ui-bundle.js"></script>
-        <script src="/api-docs-assets/swagger-ui-standalone-preset.js"></script>
-
+        <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+        <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
         <script>
-          window.onload = function () {
+          window.onload = function() {
             SwaggerUIBundle({
               spec: ${JSON.stringify(swaggerSpec)},
               dom_id: "#swagger-ui",
@@ -68,11 +66,12 @@ app.get("/api-docs", (req, res) => {
               ],
               layout: "StandaloneLayout"
             });
-          };
+          }
         </script>
       </body>
     </html>
   `);
 });
+
 
 export default app;
