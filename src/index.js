@@ -45,8 +45,6 @@ app.use("/api/v1/adoptions", adoptionRoutes);
 
 
 // Serve static assets on a separate route
-app.use("/api-docs-assets", express.static(swaggerUiAssetPath.getAbsoluteFSPath()));
-
 app.get("/api-docs", (req, res) => {
   res.send(`
     <!DOCTYPE html>
@@ -57,13 +55,18 @@ app.get("/api-docs", (req, res) => {
       </head>
       <body>
         <div id="swagger-ui"></div>
+
         <script src="/api-docs-assets/swagger-ui-bundle.js"></script>
         <script src="/api-docs-assets/swagger-ui-standalone-preset.js"></script>
+
         <script>
           window.ui = SwaggerUIBundle({
             spec: ${JSON.stringify(swaggerSpec)},
             dom_id: '#swagger-ui',
-            presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+            presets: [
+              SwaggerUIBundle.presets.apis,
+              SwaggerUIStandalonePreset
+            ],
             layout: "StandaloneLayout"
           });
         </script>
@@ -71,6 +74,7 @@ app.get("/api-docs", (req, res) => {
     </html>
   `);
 });
+
 
 
 export default app;
