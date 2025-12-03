@@ -16,6 +16,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(express.static("public"));
+
 app.use(requestLogger);
 app.use(addTimeStamp);
 
@@ -43,7 +45,7 @@ app.get("/api-docs", (req, res) => {
     <html>
       <head>
         <title>Swagger UI</title>
-        <link href="/api-docs-assets/swagger-ui.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/api-docs-assets/swagger-ui.css" />
       </head>
       <body>
         <div id="swagger-ui"></div>
@@ -52,15 +54,17 @@ app.get("/api-docs", (req, res) => {
         <script src="/api-docs-assets/swagger-ui-standalone-preset.js"></script>
 
         <script>
-          window.ui = SwaggerUIBundle({
-            spec: ${JSON.stringify(swaggerSpec)},
-            dom_id: '#swagger-ui',
-            presets: [
-              SwaggerUIBundle.presets.apis,
-              SwaggerUIStandalonePreset
-            ],
-            layout: "StandaloneLayout"
-          });
+          window.onload = function () {
+            SwaggerUIBundle({
+              spec: ${JSON.stringify(swaggerSpec)},
+              dom_id: "#swagger-ui",
+              presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+              ],
+              layout: "StandaloneLayout"
+            });
+          };
         </script>
       </body>
     </html>
